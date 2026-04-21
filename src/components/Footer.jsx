@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../../public/logo55.png";
+import logo from "@/assets/shared/logo.webp";
 
 const Footer = () => {
   return (
@@ -344,7 +344,6 @@ const Footer = () => {
       <aside className="flex justify-center py-[20px]">
         <p>Copyright ©2025 - All right reserved by Petify</p>
       </aside>
-    
     </footer>
   );
 };

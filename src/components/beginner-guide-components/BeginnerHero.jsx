@@ -1,5 +1,5 @@
 import React from "react";
-import beginnerPhoto from "../../../public/beginner-media/download.png";
+import beginnerPhoto from "@/assets/beginner-media/download.webp";
 
 const BeginnerHero = () => {
   return (

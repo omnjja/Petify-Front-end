@@ -1,5 +1,5 @@
 import React from "react";
-import locPhoto from "../../../public/home-media/pexels-lara-jameson-8828418.jpg";
+import locPhoto from "@/assets/home-media/pexels-lara-jameson-8828418.webp";
 import { Link } from "react-router-dom";
 import UseLoggedUser from "../../hooks/UseLoggedUser";
 

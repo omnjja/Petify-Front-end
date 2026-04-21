@@ -3,12 +3,12 @@ import style from "../css-modules/Navbar.module.css";
 import { Link, NavLink } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { MdOutlineCancel } from "react-icons/md";
-import logo from "../../public/logo55.png";
+import logo from "@/assets/shared/logo.webp";
 import Notifications from "./Notifications";
 import UseLogout from "../hooks/UseLogout";
 import UseLoggedUser from "../hooks/UseLoggedUser";
 import UseCartCount from "../hooks/UseCartCount";
-import avatar from "../../public/download (4).jpg";
+import avatar from "@/assets/shared/download (4).webp";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

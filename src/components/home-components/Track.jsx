@@ -1,6 +1,6 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
-import trackPhoto from "../../../public/home-media/pexels-kampus-7843933.jpg";
+import trackPhoto from "@/assets/home-media/pexels-kampus-7843933.webp";
 import { Link } from "react-router-dom";
 import UseLoggedUser from "../../hooks/UseLoggedUser";
 

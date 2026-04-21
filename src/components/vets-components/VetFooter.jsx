@@ -1,6 +1,6 @@
 import React from "react";
-import photo1 from "../../../public/vets-media/pexels-misolo-cosmetic-2588316-4841264.jpg"
-import photo2 from "../../../public/vets-media/pexels-tahir-x-lf-2153788153-33394308.jpg"
+import photo1 from "@/assets/vets-media/pexels-misolo-cosmetic-2588316-4841264.webp"
+import photo2 from "@/assets/vets-media/pexels-tahir-x-lf-2153788153-33394308.webp"
 
 const VetFooter = () => {
   return (

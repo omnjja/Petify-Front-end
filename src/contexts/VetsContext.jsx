@@ -41,7 +41,7 @@ export { VetsContext };
     {
       id: 1,
       name: "Aleet Vet Center",
-      photo: "/public/vets-media/Screenshot_25.png",
+      photo: "/public/vets-media/Screenshot_25.webp",
       clinicAddress: "El Nozha, Egypt",
       rate: 4.6,
       availability: [
@@ -85,7 +85,7 @@ export { VetsContext };
     {
       id: 2,
       name: "British Animal Hospital",
-      photo: "/public/vets-media/pexels-annetnavi-792775.jpg",
+      photo: "/public/vets-media/pexels-annetnavi-792775.webp",
       clinicAddress: "Zamalek, Egypt",
       rate: 5.0,
       availability: [
@@ -130,7 +130,7 @@ export { VetsContext };
     {
       id: 3,
       name: "Aleet Vet Center",
-      photo: "/public/vets-media/Screenshot_25.png",
+      photo: "/public/vets-media/Screenshot_25.webp",
       clinicAddress: "El Nozha, Egypt",
       rate: 4.6,
       availability: [
@@ -174,7 +174,7 @@ export { VetsContext };
     {
       id: 4,
       name: "British Animal Hospital",
-      photo: "/public/vets-media/pexels-annetnavi-792775.jpg",
+      photo: "/public/vets-media/pexels-annetnavi-792775.webp",
       clinicAddress: "Zamalek, Egypt",
       rate: 5.0,
       availability: [
@@ -219,7 +219,7 @@ export { VetsContext };
     {
       id: 5,
       name: "Aleet Vet Center",
-      photo: "/public/vets-media/Screenshot_25.png",
+      photo: "/public/vets-media/Screenshot_25.webp",
       clinicAddress: "El Nozha, Egypt",
       rate: 4.6,
       availability: [
@@ -263,7 +263,7 @@ export { VetsContext };
     {
       id: 6,
       name: "British Animal Hospital",
-      photo: "/public/vets-media/pexels-annetnavi-792775.jpg",
+      photo: "/public/vets-media/pexels-annetnavi-792775.webp",
       clinicAddress: "Zamalek, Egypt",
       rate: 5.0,
       availability: [

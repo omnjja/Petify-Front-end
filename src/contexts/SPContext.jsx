@@ -18,8 +18,8 @@ const SPProvider = ({ children }) => {
       discount: 10, // 10% discount
       description: "Gentle dog shampoo for healthy and shiny coat.",
       photos: [
-        "public/pexels-tima-miroshnichenko-6131529.jpg",
-        "public/pexels-pixabay-220938.jpg",
+        "public/pexels-tima-miroshnichenko-6131529.webp",
+        "public/pexels-pixabay-220938.webp",
       ],
       stock: 12,
       note: "Suitable for puppies over 3 months old.",
@@ -30,8 +30,7 @@ const SPProvider = ({ children }) => {
       price: 200,
       discount: 0, // no discount
       description: "Nutritious dry food for adult cats.",
-      photos: ["public/pexels-pixabay-220938.jpg"],
-      stock: 8,
+      photos: ["public/pexels-pixabay-220938.webp"],
       note: "Store in a cool and dry place.",
     },
     {
@@ -40,7 +39,7 @@ const SPProvider = ({ children }) => {
       price: 75,
       discount: 15, // 15% discount
       description: "Durable chew toys for dogs and cats.",
-      photos: ["public/pexels-pixabay-220938.jpg"],
+      photos: ["public/pexels-pixabay-220938.webp"],
       stock: 20,
       note: "Available in multiple colors.",
     },
@@ -50,7 +49,7 @@ const SPProvider = ({ children }) => {
       price: 600,
       discount: 50, // flat discount
       description: "Spacious cage suitable for small to medium birds.",
-      photos: ["public/pexels-pixabay-220938.jpg"],
+      photos: ["public/pexels-pixabay-220938.webp"],
       stock: 5,
       note: "Comes with perches and a feeding tray.",
     },
@@ -60,7 +59,7 @@ const SPProvider = ({ children }) => {
       price: 90,
       discount: 5,
       description: "Premium quality hay for rabbits and guinea pigs.",
-      photos: ["public/pexels-pixabay-220938.jpg"],
+      photos: ["public/pexels-pixabay-220938.webp"],
       stock: 15,
       note: "100% natural and fresh.",
     },

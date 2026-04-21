@@ -1,6 +1,6 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
-import upcomingPhoto from "../../../public/home-media/pexels-mikhail-nilov-7469213.jpg";
+import upcomingPhoto from "@/assets/home-media/pexels-mikhail-nilov-7469213.webp";
 import { Link } from "react-router-dom";
 import UseLoggedUser from "../../hooks/UseLoggedUser";
 

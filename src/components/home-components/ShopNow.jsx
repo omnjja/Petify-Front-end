@@ -1,5 +1,5 @@
 import React from "react";
-import shopPhoto from "../../../public/home-media/pexels-mateusz-3627236-8368423.jpg";
+import shopPhoto from "@/assets/home-media/pexels-mateusz-3627236-8368423.webp";
 import { Link } from "react-router-dom";
 
 const ShopNow = () => {

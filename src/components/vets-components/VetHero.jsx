@@ -1,5 +1,5 @@
 import React from "react";
-import heroPhoto from "../../../public/image.png";
+import heroPhoto from "@/assets/shared/image.webp";
 
 const VetHero = () => {
   return (

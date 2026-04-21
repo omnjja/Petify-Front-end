@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import style from "../../css-modules/Navbar.module.css";
-import logo from "../../../public/logo55.png";
+import logo from "@/assets/shared/logo.webp";
 import UseLogout from "../../hooks/UseLogout";
 import UseLoggedUser from "../../hooks/UseLoggedUser";
 import { Link, NavLink } from "react-router-dom";
@@ -25,7 +25,6 @@ const SPNavbar = () => {
         {loggedUser && (
           <>
             <Notifications />
-
           </>
         )}
       </div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { MdOutlineCancel } from "react-icons/md";
-import logo from "../../../public/logo55.png";
+import logo from "@/assets/shared/logo.webp";
 import style from "./SignNavbar.module.css"
 
 const SignNavbar = () => {

@@ -3,12 +3,12 @@ import UseLoggedUser from "../../hooks/UseLoggedUser";
 import Notifications from "../Notifications";
 import { Link } from "react-router-dom";
 import style from "../../css-modules/Navbar.module.css";
-import logo from "../../../public/logo55.png";
+import logo from "@/assets/shared/logo.webp";
 import UseLogout from "../../hooks/UseLogout";
 
 const AdminNavbar = () => {
   const loggedUser = UseLoggedUser();
-    const logout = UseLogout();
+  const logout = UseLogout();
 
   return (
     <nav
@@ -24,7 +24,12 @@ const AdminNavbar = () => {
             <Notifications />
 
             <Link to="/login">
-              <button className={`${style.btn} !bg-[#FF383C]`} onClick={() => logout()}>Logout</button>
+              <button
+                className={`${style.btn} !bg-[#FF383C]`}
+                onClick={() => logout()}
+              >
+                Logout
+              </button>
             </Link>
           </>
         )}
