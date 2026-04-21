@@ -12,10 +12,10 @@ const Hero = () => {
         <h5 className="text-[#2F4156] font-bold text-3xl md:text-5xl capitalize">
           a pet platform with everthing you need
         </h5>
-        <p className="text-[#2f415677] text-sm md:text-base">
+        {/* <p className="text-[#2f415677] text-sm md:text-base">
           Caring for your furry friends has never been easier. From products and
           guides to booking vets and services — all in one place.
-        </p>
+        </p> */}
         {!isLogged &&
         <Link
           to="/signup"
