@@ -9,6 +9,7 @@ import SPNavbar from "./components/sp-components/SPNavbar";
 import AdminNavbar from "./components/admin-components/AdminNavbar";
 import AdminFooter from "./components/admin-components/AdminFooter";
 import NotFound from "./pages/NotFound";
+import ScrollToTop from "./components/public-components/ScrollToTop";
 
 function App() {
   const role = UseRole();
@@ -43,6 +44,7 @@ function App() {
       ) : (
         <Navbar /> 
       )}
+      <ScrollToTop />
       <Routes>
         {renderRoutes(getRoutes())}
         <Route path="*" element={<NotFound />} />

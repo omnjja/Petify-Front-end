@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "bundler" /* or "node" */,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+    // Remove "baseUrl": "." entirely
+  }
+}
