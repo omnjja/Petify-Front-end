@@ -22,6 +22,7 @@ const InputField = ({
         className={`w-full px-4 py-2 border ${
           error ? "border-red-500" : "border-[#2f415677]"
         } rounded-xl focus:outline-none focus:ring-1 focus:ring-[#FD7E14] focus:border-[#FD7E14]`}
+        {...props}
       />
       {error ? (
         <p className="text-red-500 text-sm mt-1">{error}</p>

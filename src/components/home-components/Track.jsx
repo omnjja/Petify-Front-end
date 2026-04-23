@@ -2,8 +2,10 @@ import React from "react";
 import { FaArrowRight } from "react-icons/fa";
 import trackPhoto from "@/assets/home-media/pexels-kampus-7843933.webp";
 import { Link } from "react-router-dom";
-import UseLoggedUser from "../../hooks/UseLoggedUser";
+import UseLoggedUser from "@/hooks/UseLoggedUser";
 import useShowToast from "@/hooks/useShowToast";
+import SectionHead from "../shared/ui/SectionHead";
+import Button from "../shared/ui/Button";
 
 const Track = () => {
   const isLogged = UseLoggedUser();
@@ -20,18 +22,22 @@ const Track = () => {
         />
       </div>
       <div className="flex flex-col justify-center gap-3 w-full md:w-[35%] text-center md:text-left px-3 md:px-[50px]">
-        <h5 className="text-[#2F4156] font-semibold text-2xl md:text-3xl capitalize">
-          track your orders
-        </h5>
-        <p className="text-[#2f415677] text-sm md:text-base">
-          Stay updated with real-time order tracking and never lose sight of
-          your pet supplies.
-        </p>
+        <SectionHead
+          head={"track your orders"}
+          subHead={
+            "Stay updated with real-time order tracking and never lose sight of your pet supplies."
+          }
+        />
         <div className="flex justify-center ">
           <Link to={isLogged && `/profile/orders`} onClick={() => showToast()}>
-            <button className="flex align-middle px-5 py-2 font-semibold rounded-3xl w-fit text-lg md:text-2xl bg-[#F8F9FA] transition cursor-pointer duration-300 ease-in-out hover:bg-gray-200 hover:scale-105">
+            <Button
+              cover={true}
+              className={
+                "w-fit flex align-middle text-lg md:text-2xl transition duration-300 ease-in-out hover:bg-gray-200 hover:scale-105"
+              }
+            >
               <FaArrowRight className="text-[#FD7E14]" />
-            </button>
+            </Button>
           </Link>
         </div>
       </div>

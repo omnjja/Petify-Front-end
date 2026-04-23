@@ -1,10 +1,10 @@
 import React from "react";
-import InputField from "../public-components/InputField";
-import SelectField from "../public-components/SelectField";
+import InputField from "../shared/ui/InputField";
+import SelectField from "../shared/ui/SelectField";
 import useCustomForm from "@/hooks/useCustomForm";
 import { signupDefaultValues, signupSchema } from "@/schemas/signupSchema";
-import Button from "../public-components/Button";
-import PasswordField from "../public-components/PasswordField";
+import Button from "../shared/ui/Button";
+import PasswordField from "../shared/ui/PasswordField";
 import FormFooter from "./FormFooter";
 import FormHeader from "./FormHeader";
 
@@ -22,7 +22,7 @@ const SignupForm = () => {
   });
 
   const onSubmit = async (data) => {
-        console.log("Form Data:", data);
+    console.log("Form Data:", data);
     try {
       // await signup(payload);
       await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate API call
@@ -40,9 +40,7 @@ const SignupForm = () => {
     <div className="flex flex-col justify-center w-full p-6 md:px-8 md:py-4 max-w-md min-h-[400px] md:min-h-[600px]">
       <FormHeader
         head={"Sign Up"}
-        subHead={
-          "Join us and start your pet care journey!"
-        }
+        subHead={"Join us and start your pet care journey!"}
       />
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
         {/* Username */}
@@ -90,12 +88,9 @@ const SignupForm = () => {
           error={errors.role?.message}
         />
         {/* Submit Button */}
-        <Button
-          text={isSubmitting ? "Signing Up..." : "Sign Up"}
-          type="submit"
-          fullWidth
-          disabled={isSubmitting}
-        />
+        <Button type="submit" fullWidth disabled={isSubmitting}>
+          {isSubmitting ? "Signing Up..." : "Sign Up"}
+        </Button>
         {errors.root && (
           <p className="text-red-500 text-sm flex items-center mb-1">
             {errors.root.message || "An error occurred. Please try again."}

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import InputField from "../public-components/InputField";
+import InputField from "../shared/ui/InputField";
 import useCustomForm from "@/hooks/useCustomForm";
 import { loginDefaultValues, loginSchema } from "@/schemas/signupSchema";
-import Button from "../public-components/Button";
-import PasswordField from "../public-components/PasswordField";
+import Button from "../shared/ui/Button";
+import PasswordField from "../shared/ui/PasswordField";
 import FormFooter from "./FormFooter";
 import FormHeader from "./FormHeader";
 import ForgotPassword from "./ForgotPassword";
@@ -71,12 +71,9 @@ const LoginForm = () => {
           </button>
         </div>
         {/* Submit Button */}
-        <Button
-          text={isSubmitting ? "Signing In..." : "Sign In"}
-          type="submit"
-          fullWidth
-          disabled={isSubmitting}
-        />
+        <Button type="submit" fullWidth disabled={isSubmitting}>
+          {isSubmitting ? "Signing In..." : "Sign In"}
+        </Button>
         {errors.root && (
           <p className="text-red-500 text-sm flex items-center mb-1">
             {errors.root.message || "An error occurred. Please try again."}

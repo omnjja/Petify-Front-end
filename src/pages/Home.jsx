@@ -1,11 +1,11 @@
 import React from "react";
-import Hero from "../components/home-components/Hero";
-import Services from "../components/home-components/Services";
-import ShopNow from "../components/home-components/ShopNow";
-import Track from "../components/home-components/Track";
-import Nearby from "../components/home-components/Nearby";
-import Upcoming from "../components/home-components/Upcoming";
-import News from "../components/home-components/News";
+import Hero from "@/components/home-components/Hero";
+import Services from "@/components/home-components/Services";
+import ShopNow from "@/components/home-components/ShopNow";
+import Track from "@/components/home-components/Track";
+import Nearby from "@/components/home-components/Nearby";
+import Upcoming from "@/components/home-components/Upcoming";
+import News from "@/components/home-components/News";
 
 const Home = () => {
   return (

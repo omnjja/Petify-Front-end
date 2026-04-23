@@ -9,7 +9,7 @@ import SPNavbar from "./components/sp-components/SPNavbar";
 import AdminNavbar from "./components/admin-components/AdminNavbar";
 import AdminFooter from "./components/admin-components/AdminFooter";
 import NotFound from "./pages/NotFound";
-import ScrollToTop from "./components/public-components/ScrollToTop";
+import ScrollToTop from "./components/shared/ui/ScrollToTop";
 
 function App() {
   const role = UseRole();
@@ -42,7 +42,7 @@ function App() {
       ) : role === "SERVICE_PROVIDER" ? (
         <SPNavbar />
       ) : (
-        <Navbar /> 
+        <Navbar />
       )}
       <ScrollToTop />
       <Routes>
@@ -51,7 +51,11 @@ function App() {
       </Routes>
 
       <Toaster position="top-center" />
-      {role === "ADMIN" || role === "SERVICE_PROVIDER" ? <AdminFooter/> : <Footer/>}
+      {role === "ADMIN" || role === "SERVICE_PROVIDER" ? (
+        <AdminFooter />
+      ) : (
+        <Footer />
+      )}
     </>
   );
 }

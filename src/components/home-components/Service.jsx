@@ -3,7 +3,6 @@ import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Service = ({ service }) => {
-
   return (
     <Link to={service.id}>
       <div className="group flex flex-col w-full max-w-[280px] sm:max-w-none rounded-[10px] bg-[#F8F9FA] cursor-pointer duration-300 ease-in-out hover:scale-105">
