@@ -7,12 +7,15 @@ const SectionHead = ({
   superHead,
   headClassName,
   subHeadClassName,
+  className,
 }) => {
   const headType = superHead
     ? `font-bold text-3xl md:text-5xl`
     : `font-semibold text-2xl md:text-3xl`;
   return (
-    <div className="flex flex-col justify-center gap-5 text-center md:text-left">
+    <div
+      className={`flex flex-col justify-center gap-5 text-center md:text-left ${className}`}
+    >
       {petify && (
         <p className="text-[#FD7E14] text-sm md:text-base font-bold">Petify</p>
       )}

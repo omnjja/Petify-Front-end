@@ -1,5 +1,5 @@
 import "./App.css";
-import Footer from "./components/Footer";
+import Footer from "./components/shared/ui/Footer";
 import Navbar from "./components/Navbar";
 import { Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";

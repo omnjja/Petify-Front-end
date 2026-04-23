@@ -88,7 +88,12 @@ const SignupForm = () => {
           error={errors.role?.message}
         />
         {/* Submit Button */}
-        <Button type="submit" fullWidth disabled={isSubmitting}>
+        <Button
+          type="submit"
+          fullWidth
+          disabled={isSubmitting}
+          secondary={true}
+        >
           {isSubmitting ? "Signing Up..." : "Sign Up"}
         </Button>
         {errors.root && (

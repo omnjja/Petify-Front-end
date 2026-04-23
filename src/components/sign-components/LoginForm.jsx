@@ -71,7 +71,7 @@ const LoginForm = () => {
           </button>
         </div>
         {/* Submit Button */}
-        <Button type="submit" fullWidth disabled={isSubmitting}>
+        <Button type="submit" fullWidth disabled={isSubmitting} secondary={true}>
           {isSubmitting ? "Signing In..." : "Sign In"}
         </Button>
         {errors.root && (

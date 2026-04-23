@@ -1,8 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "@/assets/shared/logo.webp";
+import UseLoggedUser from "@/hooks/UseLoggedUser";
+import useShowToast from "@/hooks/useShowToast";
 
 const Footer = () => {
+  const isLogged = UseLoggedUser();
+  const showToast = useShowToast();
   return (
     <footer className="font-[Poppins] relative bottom-0 w-full py-[20px] flex flex-col gap-[30px] bg-linear-[17deg,#8195a1_10%,#9ba6b0a1_100%] text-[#2f4156]">
       <svg
@@ -315,8 +319,8 @@ const Footer = () => {
         />
       </svg>
       <div className="relative z-20 flex  flex-wrap justify-evenly text-center items-start md:pt-10">
-        <div className="w-[150px] h-[150px] overflow-hidden flex items-center">
-          <img src={logo} alt="" className="w-[150px] h-[150px]" />
+        <div className="w-[100px] h-[100px] md:w-[150px] md:h-[150px] overflow-hidden flex items-center">
+          <img src={logo} alt="" className="w-full h-full" />
         </div>
         <nav className="flex flex-col">
           <h6 className="font-bold pb-2">Company</h6>
@@ -326,17 +330,26 @@ const Footer = () => {
         <nav className="flex flex-col h-full">
           <h6 className="font-bold pb-2">Useful Links</h6>
           <Link to="/shop">Products</Link>
-          <Link to="/nearby-places">Nearby Places</Link>
+          <Link to={isLogged && `/nearby-places`} onClick={() => showToast()}>
+            Nearby Places
+          </Link>
           <Link to="/vets">Vets</Link>
         </nav>
         <nav className="flex flex-col">
           <h6 className="font-bold pb-2">Customer Services</h6>
-          <Link to="/profile/orders">Order Tracking</Link>
-          <Link to="/profile/appointments">Appointments</Link>
+          <Link to={isLogged && `/profile/orders`} onClick={() => showToast()}>
+            Order Tracking
+          </Link>
+          <Link
+            to={isLogged && `/profile/appointments`}
+            onClick={() => showToast()}
+          >
+            Appointments
+          </Link>
         </nav>
         <nav className="flex flex-col">
           <h6 className="font-bold pb-2">Contact</h6>
-          <a className="">+0123456789</a>
+          <a className="">+20123456789</a>
           <a className="">petify@outlook.com</a>
         </nav>
       </div>
