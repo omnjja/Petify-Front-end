@@ -13,7 +13,7 @@ const ProfileProvider = ({ children }) => {
 
   useEffect(() => {
     if (role !== "PET_OWNER") return;
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("user_token");
     if (!token) return;
     const getUserData = async () => {
       try {
@@ -32,7 +32,7 @@ const ProfileProvider = ({ children }) => {
 
   useEffect(() => {
     if (role !== "PET_OWNER") return;
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("user_token");
     if (!token) return;
     const getUserPets = async () => {
       try {

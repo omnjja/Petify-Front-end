@@ -7,31 +7,31 @@ import Button from "../shared/ui/Button";
 import PasswordField from "../shared/ui/PasswordField";
 import FormFooter from "./FormFooter";
 import FormHeader from "./FormHeader";
+import UseAuth from "@/hooks/UseAuth";
+import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
   const {
     register,
     handleSubmit,
     setError,
-    reset,
     formState: { errors, isSubmitting },
   } = useCustomForm({
     defaultValues: signupDefaultValues,
     schema: signupSchema,
     mode: "onChange",
   });
-
+  const navigate = useNavigate();
+  const { signup } = UseAuth();
   const onSubmit = async (data) => {
     console.log("Form Data:", data);
     try {
-      // await signup(payload);
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate API call
-      reset();
-    } catch (error) {
+      await signup(data);
+      navigate("/");
+    } catch (err) {
       setError("root", {
         message:
-          error.response?.data?.message ||
-          "An error occurred. Please try again.",
+          err.response?.data?.message || "An error occurred. Please try again.",
       });
     }
   };

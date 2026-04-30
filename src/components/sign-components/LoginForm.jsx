@@ -7,14 +7,16 @@ import PasswordField from "../shared/ui/PasswordField";
 import FormFooter from "./FormFooter";
 import FormHeader from "./FormHeader";
 import ForgotPassword from "./ForgotPassword";
+import UseAuth from "@/hooks/UseAuth";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [openForgotPassword, setOpenForgotPassword] = useState(false);
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     setError,
-    reset,
     formState: { errors, isSubmitting },
   } = useCustomForm({
     defaultValues: loginDefaultValues,
@@ -22,16 +24,17 @@ const LoginForm = () => {
     mode: "onChange",
   });
 
-  const onSubmit = async (data) => {
-    console.log("Form Data:", data);
+  const {login} = UseAuth()
+
+  const onSubmit = async (formData) => {
+    console.log("Form Data:", formData);
     try {
-      // await login(payload);
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate API call
-      reset();
-    } catch (error) {
+      await login(formData);
+      navigate("/");
+    } catch (err) {
       setError("root", {
         message:
-          error.response?.data?.message ||
+          err.response?.data?.message ||
           "An error occurred. Please try again.",
       });
     }

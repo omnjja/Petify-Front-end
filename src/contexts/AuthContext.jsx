@@ -1,40 +1,36 @@
 import React, { createContext, useEffect, useState } from "react";
-import * as authApi from "../APIs/authAPI";
+// import * as authApi from "@/APIs/authAPI";
+import * as authApi from "@/mockAPIs/mockAuthAPI";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(() => {
-    const storedUser = localStorage.getItem("logged user");
-    return storedUser ? JSON.parse(storedUser) : null;
-  });
+  const [user, setUser] = useState(null);
 
-  const [token, setToken] = useState(null);
-  const [role, setRole] = useState(user?.role || "PET_OWNER");
+  // derive role from user, no separate state
+  const role = user?.role || "PET_OWNER";
+
+  useEffect(() => {
+    const stored = localStorage.getItem("user_data");
+    if (stored) setUser(JSON.parse(stored));
+  }, []);
 
   const signup = async (formData) => {
-    try {
-      const { data } = await authApi.signup(formData);
-      return data;
-    } catch (err) {
-      throw err;
-    }
+    const { data } = await authApi.signup(formData);
+    localStorage.setItem("user_token", data.token);
+    localStorage.setItem("user_data", JSON.stringify(data.user));
+    setUser(data.user);
+    return data;
   };
 
   const login = async (formData) => {
-    try {
-      const { data } = await authApi.login(formData);
-      localStorage.setItem("logged user", JSON.stringify(data.user));
-      setUser(data.user);
-      setRole(data.user.role);
-      setToken(data.token);
-      localStorage.setItem("token", data.token);
-      return data;
-    } catch (err) {
-      throw err;
-    }
+    const { data } = await authApi.login(formData);
+    localStorage.setItem("user_token", data.token);
+    localStorage.setItem("user_data", JSON.stringify(data.user));
+    setUser(data.user);
+    return data;
   };
 
   const forgotPassword = async (email) => {
@@ -43,21 +39,16 @@ const AuthProvider = ({ children }) => {
   };
 
   const changePassword = async (userData) => {
-    const { data } = authApi.changePassword(userData);
+    const { data } = await authApi.changePassword(userData);
     return data;
   };
 
   const logout = async () => {
-    try {
-      const { data } = await authApi.logout();
-      setUser(null);
-      setRole("PET_OWNER");
-      localStorage.removeItem("logged user");
-      localStorage.removeItem("token");
-      navigate("/login");
-    } catch (error) {
-      console.log(error);
-    }
+    await authApi.logout();
+    setUser(null);
+    localStorage.removeItem("user_token");
+    localStorage.removeItem("user_data");
+    navigate("/login");
   };
 
   return (
@@ -71,9 +62,6 @@ const AuthProvider = ({ children }) => {
         forgotPassword,
         changePassword,
         role,
-        setRole,
-        token,
-        setToken,
       }}
     >
       {children}
