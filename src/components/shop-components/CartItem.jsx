@@ -1,13 +1,15 @@
 import React, { useContext } from "react";
 import { MdDelete } from "react-icons/md";
 import { ProductsContext } from "../../contexts/ProductsContext";
-import UseCartItems from "../../hooks/UseCartItems";
 import swal from "sweetalert";
 import toast, { Toaster } from "react-hot-toast";
 
 const CartItem = ({ item }) => {
-  const cartItems = UseCartItems();
-  const { setCartItems } = useContext(ProductsContext);
+  const { products, removeFromCart, updateCartQuantity } =
+    useContext(ProductsContext);
+
+  const product = products.find((p) => p.id === item?.id);
+
   function removeItem(id) {
     swal({
       text: "Are you sure you want to remove this item from the cart?",
@@ -30,47 +32,40 @@ const CartItem = ({ item }) => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        setCartItems(cartItems.filter((item) => item.id !== id));
+        removeFromCart(id);
         toast("Removed", {
           icon: "👍",
-          duration: "300",
+          duration: 300,
         });
       }
     });
   }
+
   function increaseQuantity(id) {
-    const stock = item.stock;
-    item.quantity < stock
-      ? setCartItems(
-          cartItems.map((item) =>
-            item.id == id ? { ...item, quantity: item.quantity + 1 } : item
-          )
-        )
-      : toast.error(`Only ${item.stock} items available in stock!`);
+    if (item?.quantity < product?.stock) {
+      updateCartQuantity(id, item?.quantity + 1);
+    } else {
+      toast.error("No enough items in stock!");
+    }
   }
 
   function decreaseQuantity(id) {
-    item.quantity > 1
-      ? setCartItems(
-          cartItems.map((item) =>
-            item.id == id ? { ...item, quantity: item.quantity - 1 } : item
-          )
-        )
-      : toast.error("This won't work");
+    if (item?.quantity > 1) {
+      updateCartQuantity(id, item?.quantity - 1);
+    } else {
+      removeItem(id);
+    }
   }
 
   return (
     <div className="flex flex-col md:flex-row md:items-center gap-3 border-b border-gray-200 pb-3">
-      {/* Top row in mobile: image + name/info */}
       <div className="flex items-center gap-3 flex-1">
-        {/* Image on the right in mobile */}
         <img
           src={item?.images[0]}
           alt={item?.name}
           className="w-14 h-14 md:w-20 md:h-20 object-cover rounded-lg order-2 md:order-1"
         />
 
-        {/* Name and unit price */}
         <div className="flex-1 order-1 md:order-2">
           <h3 className="font-medium text-sm md:text-base text-[#2F4156]">
             {item?.name}
@@ -81,9 +76,7 @@ const CartItem = ({ item }) => {
         </div>
       </div>
 
-      {/* Bottom row in mobile: quantity, total price, delete */}
       <div className="flex justify-between items-center mt-2 md:mt-0 gap-3 flex-1">
-        {/* Quantity controls */}
         <div className="flex items-center gap-0.5">
           <button
             onClick={() => decreaseQuantity(item?.id)}
@@ -100,12 +93,10 @@ const CartItem = ({ item }) => {
           </button>
         </div>
 
-        {/* Total Price */}
         <div className="font-semibold text-sm md:text-base text-[#FD7E14]">
           ${(item?.price * item?.quantity).toFixed(2)}
         </div>
 
-        {/* Delete button */}
         <button
           className="text-red-500 hover:text-red-700 cursor-pointer"
           onClick={() => removeItem(item?.id)}

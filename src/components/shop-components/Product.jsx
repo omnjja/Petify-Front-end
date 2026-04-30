@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { MdAddShoppingCart } from "react-icons/md";
 import UseLoggedUser from "../../hooks/UseLoggedUser";
 import { Link } from "react-router-dom";
@@ -11,28 +11,17 @@ const Product = ({ product }) => {
   const isLogged = UseLoggedUser();
   const { addToCart } = useContext(ProductsContext);
 
-
-  // function handleAddToCart(id) {
-  //   if (!isLogged) {
-  //     toast.error("Login First!");
-  //     return;
-  //   }
-
-  //   const thisCartItem = cartItems.find((ci) => ci.id == id);
-
-  //   thisCartItem
-  //     ? increaseQuantity(id)
-  //     : setCartItems([...cartItems, cartItem]);
-  //   toast.success("Added To Cart");
-  // }
-
-  function handleAddToCart(product) {
+  async function handleAddToCart(product) {
     if (!isLogged) {
       toast.error("Login First!");
       return;
     }
-
-    addToCart({ productId: product.id, quantity: 1 });
+    try {
+      await addToCart(product);
+      toast.success("Added To Cart");
+    } catch (error) {
+      toast.error(error || "Something Went wrong");
+    }
   }
 
   return (

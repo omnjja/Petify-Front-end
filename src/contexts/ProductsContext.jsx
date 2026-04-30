@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import * as productsApi from "../APIs/shopAPI";
-import * as cartApi from "../APIs/cartAPI";
-import toast from "react-hot-toast";
+// import * as productsApi from "../APIs/shopAPI";
+// import * as cartApi from "../APIs/cartAPI";
+import * as productsApi from "@/mockAPIs/mockShopAPI";
+import * as cartApi from "@/mockAPIs/mockCartAPI";
 import { AuthContext } from "./AuthContext";
 
 const ProductsContext = createContext();
@@ -16,15 +17,13 @@ const ProductsProvider = ({ children }) => {
   const productsCount = products?.length || 0;
 
   useEffect(() => {
-    if (role !== "PET_OWNER" || role !== "ADMIN") return;
     const fetchProducts = async () => {
       setLoading(true);
       try {
         const { data } = await productsApi.getAllProducts();
-        // console.log("all products", data.content);
         setProducts(data.content);
       } catch (error) {
-        // console.log("error", error.response);
+        console.log("error", error.response);
       } finally {
         setLoading(false);
       }
@@ -33,54 +32,55 @@ const ProductsProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (!role !== "PET_OWNER") return;
+    if (role !== "PET_OWNER") return;
     const fetchCart = async () => {
       try {
         const { data } = await cartApi.getUserCart();
-        // console.log("cart", data.products);
         setCartItems(data.products);
       } catch (error) {
-        // console.log("error", error.response);
+        console.log("error", error.response);
       }
     };
     fetchCart();
-  }, []);
+  }, [role]);
 
   const addToCart = async (cartItem) => {
-    try {
-      // console.log("sending to backend:", cartItem);
-      const { data } = await cartApi.addCartItem(cartItem);
-      // console.log("response:", data);
-
-      setCartItems((prev) => {
-        const exists = prev.find((ci) => ci.id === data.id);
-        if (exists) {
-          return prev.map((ci) =>
-            ci.id === data.id ? { ...ci, quantity: data.quantity } : ci
-          );
-        }
-        return [...prev, data];
-      });
-
-      toast.success("Added To Cart");
-    } catch (err) {
-      if (err.response?.status === 401 || err.response?.status === 403) {
-        toast.error("Please login again");
+    const { data } = await cartApi.addCartItem(cartItem);
+    setCartItems((prev) => {
+      const exists = prev.find((ci) => ci.id === data.id);
+      if (exists) {
+        return prev.map((ci) =>
+          ci.id === data.id ? { ...ci, quantity: data.quantity } : ci,
+        );
       }
-      // console.log(err.response);
+      return [...prev, data];
+    });
+  };
 
-      // toast.error("Failed to add item to cart");
-    }
+  const updateCartQuantity = async (id, quantity) => {
+    const { data } = await cartApi.updateCartItemQuantity(id, quantity);
+
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, quantity: data.quantity } : item,
+      ),
+    );
+  };
+
+  const removeFromCart = async (id) => {
+    await cartApi.removeCartItem(id);
+
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const clearCart = async () => {
+    await cartApi.clearCart();
+    setCartItems([]);
   };
 
   const createProduct = async (product) => {
-    try {
-      const { data } = await productsApi.addProduct(product);
-      // setPets((prev) => [...prev, data]);
-      return data;
-    } catch (error) {
-      throw error;
-    }
+    const { data } = await productsApi.addProduct(product);
+    return data;
   };
 
   return (
@@ -98,6 +98,9 @@ const ProductsProvider = ({ children }) => {
         setLoading,
         productsCount,
         createProduct,
+        updateCartQuantity,
+        removeFromCart,
+        clearCart,
       }}
     >
       {children}

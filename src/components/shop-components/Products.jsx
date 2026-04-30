@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import Product from "./Product";
 import Filters from "./Filters";
-import UseProducts from "../../hooks/UseProducts";
+import UseProducts from "@/hooks/UseProducts";
 import LoadingSpinner from "../LoadingSpinner";
-import { ProductsContext } from "../../contexts/ProductsContext";
+import { ProductsContext } from "@/contexts/ProductsContext";
 
 const PAGECOUNT = 10;
 const Products = () => {
