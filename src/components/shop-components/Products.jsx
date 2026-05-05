@@ -5,7 +5,7 @@ import UseProducts from "@/hooks/UseProducts";
 import LoadingSpinner from "../LoadingSpinner";
 import { ProductsContext } from "@/contexts/ProductsContext";
 
-const PAGECOUNT = 10;
+const PAGECOUNT = 9;
 const Products = () => {
   const petProducts = UseProducts();
   const { loading } = useContext(ProductsContext);
@@ -32,20 +32,20 @@ const Products = () => {
       : product
   );
 
-  const indexOfLastProduct = currentPage * productsPerPage; // 12
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage; // 0
-  // take products of [0 - 12] index
-  const currentProducts = filteredProducts.slice(
+  const [searchTerm, setSearchTerm] = useState("");
+  // search by name
+  const searchedProducts = filteredProducts.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  // take products of [index] range
+  const currentProducts = searchedProducts.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
-  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
-
-  const [searchTerm, setSearchTerm] = useState("");
-  // search by name
-  const searchedProducts = currentProducts.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const totalPages = Math.ceil(searchedProducts.length / productsPerPage);
 
   return petProducts?.length === 0 ? (
     <p className="col-span-full text-center bg-white text-gray-500 min-h-14 py-5">
@@ -101,13 +101,16 @@ const Products = () => {
               type="search"
               placeholder="Search products..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setCurrentPage(1);
+              }}
             />
           </label>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {searchedProducts.length > 0 ? (
-              searchedProducts.map((product, id) => (
+            {currentProducts.length > 0 ? (
+              currentProducts.map((product, id) => (
                 <Product key={id} product={product} />
               ))
             ) : (

@@ -37,6 +37,7 @@ function App() {
 
   return (
     <>
+      <ScrollToTop />
       {role === "ADMIN" ? (
         <AdminNavbar />
       ) : role === "SERVICE_PROVIDER" ? (
@@ -44,7 +45,6 @@ function App() {
       ) : (
         <Navbar />
       )}
-      <ScrollToTop />
       <Routes>
         {renderRoutes(getRoutes())}
         <Route path="*" element={<NotFound />} />

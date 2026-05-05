@@ -9,6 +9,11 @@ import toast, { Toaster } from "react-hot-toast";
 import ServiceBook from "./ServiceBook";
 import UseLoggedUser from "../../hooks/UseLoggedUser";
 import { AppointmentsContext } from "../../contexts/AppointmentsContext";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 const ViewService = () => {
   const isLogged = UseLoggedUser();
@@ -33,8 +38,8 @@ const ViewService = () => {
   function handleRate(id) {
     setServices(
       services.map((s) =>
-        s.id === id ? { ...s, rating: updateRating(s.rating) } : s
-      )
+        s.id === id ? { ...s, rating: updateRating(s.rating) } : s,
+      ),
     );
     toast.success("Your Rate Is Saved");
     setUserRating(0);
@@ -48,7 +53,6 @@ const ViewService = () => {
     setOpenBook(true);
   }
 
-  //   if (!service) return <;
   return (
     <div className="max-w-8xl my-5 mx-auto p-6">
       {!service ? (
@@ -60,7 +64,7 @@ const ViewService = () => {
               No service photos available
             </p>
           ) : (
-            <div className="w-full h-80 overflow-hidden rounded-2xl shadow-md mb-4">
+            <div className="w-full h-80 overflow-hidden rounded-2xl shadow-md mb-4 relative">
               <img
                 src={service.image}
                 alt={service.name}
@@ -78,7 +82,7 @@ const ViewService = () => {
             </p>
             <p className="text-gray-600 mb-4">{service?.description}</p>
             <span className="text-2xl font-semibold text-[#FD7E14] mb-6">
-              ${service?.priceRange}
+              ${service?.price}
             </span>
 
             {/* Rating */}
@@ -112,10 +116,7 @@ const ViewService = () => {
         </div>
       )}
       <Toaster position="top-center" reverseOrder={false} />
-      <ServiceBook
-        open={openBook}
-        setOpen={setOpenBook}
-      />
+      <ServiceBook open={openBook} setOpen={setOpenBook} />
     </div>
   );
 };

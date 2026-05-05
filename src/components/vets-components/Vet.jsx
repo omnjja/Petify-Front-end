@@ -3,7 +3,7 @@ import Rating from "../Rating";
 import { Link } from "react-router-dom";
 import { VetsContext } from "../../contexts/VetsContext";
 import { AppointmentsContext } from "../../contexts/AppointmentsContext";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import UseLoggedUser from "../../hooks/UseLoggedUser";
 import ServiceBook from "../pet-services-components/ServiceBook";
 
@@ -20,10 +20,10 @@ const Vet = ({ vet }) => {
     setSelectedAppointment(vet);
   }
   return (
-    <div className=" w-full sm:w-[300px] md:w-[500px] flex flex-col sm:flex-row p-4 rounded-xl gap-5 bg-[#f3f3f4ba] shadow-lg hover:shadow-2xl">
-      <div className="w-full h-[150px] md:w-[200px] md:h-full overflow-hidden flex items-center rounded-xl mx-auto sm:mx-0">
+    <div className=" w-full sm:w-[400px] md:w-[600px] flex flex-1 flex-col sm:flex-row p-4 rounded-xl gap-5 bg-[#f3f3f4ba] shadow-lg hover:shadow-2xl">
+      <div className="w-full h-[150px] md:w-[300px] md:h-full overflow-hidden flex items-center rounded-xl mx-auto sm:mx-0">
         <img
-          src={vet.photo}
+          src={vet.image}
           alt={vet.name}
           className="w-full h-full object-cover"
         />
@@ -38,9 +38,6 @@ const Vet = ({ vet }) => {
         <Rating value={vet.rate} readOnly />
         <p className="text-[#2f415677] text-sm sm:text-base flex-1">
           {vet.description}
-        </p>
-        <p className="text-[#FD7E14] font-medium text-sm sm:text-base">
-          {vet.price}$
         </p>
 
         <button

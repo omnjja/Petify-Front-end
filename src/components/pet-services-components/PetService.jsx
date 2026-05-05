@@ -5,6 +5,11 @@ import { AppointmentsContext } from "../../contexts/AppointmentsContext";
 import UseSelectedAppointment from "../../hooks/UseSelectedAppointment";
 import toast, { Toaster } from "react-hot-toast";
 import UseLoggedUser from "../../hooks/UseLoggedUser";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 const PetService = ({ service, setOpen }) => {
   const isLogged = UseLoggedUser();
@@ -25,11 +30,11 @@ const PetService = ({ service, setOpen }) => {
         to={`/services/view-service/${service.id}`}
         className="flex-1 flex flex-col"
       >
-        <div className="w-full h-40 sm:h-44 md:h-40 overflow-hidden rounded-xl">
+        <div className="w-full h-40 sm:h-44 md:h-40 overflow-hidden rounded-xl relative">
           <img
             src={service.image}
             alt={service.name}
-            className="h-full w-full object-cover"
+            className="w-full h-full object-cover"
           />
         </div>
 
@@ -53,7 +58,7 @@ const PetService = ({ service, setOpen }) => {
       >
         Book Now
       </button>
-       <Toaster position="top-center" reverseOrder={false} />
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };

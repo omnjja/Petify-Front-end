@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import * as appointmentsApi from "../APIs/appointmentsAPI";
+// import * as appointmentsApi from "../APIs/appointmentsAPI";
+import * as appointmentsApi from "@/mockAPIs/mockAppointmentsAPI";
 import { confirmMessage } from "../utils/confirmMessage";
 import { toastPromise } from "../utils/toastPromise";
 import { AuthContext } from "./AuthContext";

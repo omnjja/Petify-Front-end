@@ -40,8 +40,8 @@ const ViewProduct = () => {
   function increaseQuantity(id) {
     setCartItems(
       cartItems.map((item) =>
-        item.id == id ? { ...item, quantity: item.quantity + 1 } : item
-      )
+        item.id == id ? { ...item, quantity: item.quantity + 1 } : item,
+      ),
     );
   }
   function handleAddToCart(id) {
@@ -61,8 +61,8 @@ const ViewProduct = () => {
   function handleRate(id) {
     setProducts(
       products.map((p) =>
-        p.id === id ? { ...p, rating: updateRating(p.rating) } : p
-      )
+        p.id === id ? { ...p, rating: updateRating(p.rating) } : p,
+      ),
     );
     toast.success("Your Rate Is Saved");
     setUserRating(0);
@@ -74,31 +74,16 @@ const ViewProduct = () => {
         <LoadingSpinner text="Product is Loadig" />
       ) : (
         <div className="grid md:grid-cols-2 gap-8">
-          {!product?.images?.length ? (
+          {!product?.image ? (
             <p className="text-gray-500 text-center">
               No product images available
             </p>
           ) : (
-            <div className="w-full h-80 overflow-hidden rounded-2xl shadow-md mb-4">
-              <Swiper
-                modules={[Navigation, Pagination, Autoplay]}
-                navigation
-                pagination={{ clickable: true }}
-                autoplay={{ delay: 3000 }}
-                loop={true}
-                className="rounded-xl"
-              >
-                {product?.images?.map((photo, idx) => (
-                  <SwiperSlide key={idx}>
-                    <img
-                      src={photo}
-                      alt={`${product?.name}-${idx}`}
-                      className="w-full h-80 object-cover rounded-xl"
-                    />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full h-80 object-cover rounded-xl"
+            />
           )}
 
           <div className="flex flex-col">

@@ -7,7 +7,8 @@ export const mockProducts = [
     price: 29.99,
     rating: 4.5,
     stock: 25,
-    images: ["https://placehold.co/400x300?text=Dog+Food"],
+    image:
+      "https://images.unsplash.com/photo-1552053831-71594a27632d?w=400&h=300&fit=crop&auto=format",
   },
   {
     id: "p2",
@@ -17,7 +18,8 @@ export const mockProducts = [
     price: 19.99,
     rating: 4.2,
     stock: 18,
-    images: ["https://placehold.co/400x300?text=Cat+Post"],
+    image:
+      "https://images.unsplash.com/photo-1545249390-6bdfa286032f?w=400&h=300&fit=crop&auto=format",
   },
   {
     id: "p3",
@@ -27,7 +29,8 @@ export const mockProducts = [
     price: 59.99,
     rating: 4.7,
     stock: 10,
-    images: ["https://placehold.co/400x300?text=Bird+Cage"],
+    image:
+      "https://images.unsplash.com/photo-1520808663317-647b476a81b9?w=400&h=300&fit=crop&auto=format",
   },
   {
     id: "p4",
@@ -37,7 +40,8 @@ export const mockProducts = [
     price: 14.99,
     rating: 4.0,
     stock: 30,
-    images: ["https://placehold.co/400x300?text=Chew+Toys"],
+    image:
+      "https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=400&h=300&fit=crop&auto=format",
   },
   {
     id: "p5",
@@ -47,7 +51,8 @@ export const mockProducts = [
     price: 24.99,
     rating: 4.6,
     stock: 22,
-    images: ["https://placehold.co/400x300?text=Cat+Food"],
+    image:
+      "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400&h=300&fit=crop&auto=format",
   },
   {
     id: "p6",
@@ -57,7 +62,8 @@ export const mockProducts = [
     price: 39.99,
     rating: 4.3,
     stock: 14,
-    images: ["https://placehold.co/400x300?text=Carrier"],
+    image:
+      "https://images.unsplash.com/photo-1523286877159-d9636545890c?w=400&h=300&fit=crop&auto=format",
   },
   {
     id: "p7",
@@ -67,7 +73,8 @@ export const mockProducts = [
     price: 79.99,
     rating: 4.8,
     stock: 8,
-    images: ["https://placehold.co/400x300?text=Aquarium"],
+    image:
+      "https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?w=400&h=300&fit=crop&auto=format",
   },
   {
     id: "p8",
@@ -77,7 +84,8 @@ export const mockProducts = [
     price: 12.99,
     rating: 4.1,
     stock: 27,
-    images: ["https://placehold.co/400x300?text=Laser+Toy"],
+    image:
+      "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400&h=300&fit=crop&auto=format",
   },
   {
     id: "p9",
@@ -87,7 +95,8 @@ export const mockProducts = [
     price: 9.99,
     rating: 4.4,
     stock: 35,
-    images: ["https://placehold.co/400x300?text=Rabbit+Food"],
+    image:
+      "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=400&h=300&fit=crop&auto=format",
   },
   {
     id: "p10",
@@ -97,7 +106,8 @@ export const mockProducts = [
     price: 34.99,
     rating: 4.5,
     stock: 16,
-    images: ["https://placehold.co/400x300?text=Grooming+Kit"],
+    image:
+      "https://images.unsplash.com/photo-1581888227599-779811939961?w=400&h=300&fit=crop&auto=format",
   },
   {
     id: "p11",
@@ -107,7 +117,8 @@ export const mockProducts = [
     price: 8.99,
     rating: 4.2,
     stock: 40,
-    images: ["https://placehold.co/400x300?text=Hamster+Wheel"],
+    image:
+      "https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=400&h=300&fit=crop&auto=format",
   },
   {
     id: "p12",
@@ -117,6 +128,172 @@ export const mockProducts = [
     price: 119.99,
     rating: 4.6,
     stock: 6,
-    images: ["https://placehold.co/400x300?text=Dog+Kennel"],
+    image:
+      "https://images.unsplash.com/photo-1568572933382-74d440642117?w=400&h=300&fit=crop&auto=format",
+  },
+  {
+    id: "p13",
+    name: "Cat Litter Box",
+    description: "Spacious litter box with odor control lid",
+    category: "Accessories",
+    price: 22.99,
+    rating: 4.4,
+    stock: 20,
+    image:
+      "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&h=300&fit=crop&auto=format",
+  },
+  {
+    id: "p14",
+    name: "Dog Collar LED",
+    description: "Glow-in-the-dark collar for night walks",
+    category: "Accessories",
+    price: 15.99,
+    rating: 4.3,
+    stock: 28,
+    image:
+      "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400&h=300&fit=crop&auto=format",
+  },
+  {
+    id: "p15",
+    name: "Fish Food Flakes",
+    description: "Nutritious flakes for tropical fish",
+    category: "Food",
+    price: 6.99,
+    rating: 4.2,
+    stock: 50,
+    image:
+      "https://images.unsplash.com/photo-1535591273668-578e31182c4f?w=400&h=300&fit=crop&auto=format",
+  },
+  {
+    id: "p16",
+    name: "Pet Water Fountain",
+    description: "Automatic water dispenser with filter",
+    category: "Accessories",
+    price: 29.99,
+    rating: 4.6,
+    stock: 18,
+    image:
+      "https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=400&h=300&fit=crop&auto=format",
+  },
+  {
+    id: "p17",
+    name: "Dog Training Pads",
+    description: "Absorbent pads for puppy training",
+    category: "Accessories",
+    price: 18.99,
+    rating: 4.5,
+    stock: 32,
+    image:
+      "https://images.unsplash.com/photo-1560807707-8cc77767d783?w=400&h=300&fit=crop&auto=format",
+  },
+  {
+    id: "p18",
+    name: "Cat Tunnel Toy",
+    description: "Foldable tunnel for interactive play",
+    category: "Toys",
+    price: 13.99,
+    rating: 4.3,
+    stock: 24,
+    image:
+      "https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?w=400&h=300&fit=crop&auto=format",
+  },
+  {
+    id: "p19",
+    name: "Reptile Heat Lamp",
+    description: "Heat lamp for reptiles and terrariums",
+    category: "Housing",
+    price: 27.99,
+    rating: 4.4,
+    stock: 12,
+    image:
+      "https://images.unsplash.com/photo-1518155317743-a8ff43ea6a5f?w=400&h=300&fit=crop&auto=format",
+  },
+  {
+    id: "p20",
+    name: "Dog Harness",
+    description: "Adjustable harness for comfortable walks",
+    category: "Accessories",
+    price: 21.99,
+    rating: 4.5,
+    stock: 26,
+    image:
+      "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400&h=300&fit=crop&auto=format",
+  },
+  {
+    id: "p21",
+    name: "Bird Feeding Set",
+    description: "Complete feeder and water dispenser set",
+    category: "Accessories",
+    price: 17.99,
+    rating: 4.2,
+    stock: 19,
+    image:
+      "https://images.unsplash.com/photo-1444464666168-49d633b86797?w=400&h=300&fit=crop&auto=format",
+  },
+  {
+    id: "p22",
+    name: "Pet Shampoo",
+    description: "Gentle shampoo suitable for all pets",
+    category: "Grooming",
+    price: 11.99,
+    rating: 4.4,
+    stock: 34,
+    image:
+      "https://images.unsplash.com/photo-1591946614720-90a587da4a36?w=400&h=300&fit=crop&auto=format",
+  },
+  {
+    id: "p23",
+    name: "Dog Bed Memory Foam",
+    description: "Orthopedic bed for maximum comfort",
+    category: "Housing",
+    price: 49.99,
+    rating: 4.7,
+    stock: 11,
+    image:
+      "https://images.unsplash.com/photo-1517849845537-4d257902454a?w=400&h=300&fit=crop&auto=format",
+  },
+  {
+    id: "p24",
+    name: "Cat Feather Toy",
+    description: "Interactive feather wand for cats",
+    category: "Toys",
+    price: 7.99,
+    rating: 4.1,
+    stock: 45,
+    image:
+      "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&h=300&fit=crop&auto=format",
+  },
+  {
+    id: "p25",
+    name: "Pet Travel Bottle",
+    description: "Portable water bottle for pets on the go",
+    category: "Accessories",
+    price: 9.99,
+    rating: 4.3,
+    stock: 38,
+    image:
+      "https://images.unsplash.com/photo-1583511655826-05700d52f4d9?w=400&h=300&fit=crop&auto=format",
+  },
+  {
+    id: "p26",
+    name: "Dog Dental Chews",
+    description: "Treats that help clean teeth and freshen breath",
+    category: "Food",
+    price: 14.99,
+    rating: 4.6,
+    stock: 29,
+    image:
+      "https://images.unsplash.com/photo-1606425271394-c3ca9aa1fc06?w=400&h=300&fit=crop&auto=format",
+  },
+  {
+    id: "p27",
+    name: "Small Pet Cage",
+    description: "Compact cage for hamsters and small animals",
+    category: "Housing",
+    price: 34.99,
+    rating: 4.3,
+    stock: 15,
+    image:
+      "https://images.unsplash.com/photo-1452857297128-d9c29adba80b?w=400&h=300&fit=crop&auto=format",
   },
 ];

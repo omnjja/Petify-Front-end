@@ -7,7 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { ServicesContext } from "../../contexts/ServicesContext";
 import LoadingSpinner from "../LoadingSpinner";
 
-const PAGECOUNT = 10;
+const PAGECOUNT = 9;
 const AllPetServices = () => {
   const petServices = UseServices();
   const [openBook, setOpenBook] = useState(false);

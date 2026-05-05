@@ -7,6 +7,13 @@ import Rating from "../Rating";
 import LoadingSpinner from "../LoadingSpinner";
 import UseLoggedUser from "../../hooks/UseLoggedUser";
 import toast, { Toaster } from "react-hot-toast";
+import ServiceBook from "../pet-services-components/ServiceBook";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { AppointmentsContext } from "../../contexts/AppointmentsContext";
 
 const ViewVet = () => {
   const isLogged = UseLoggedUser();
@@ -15,6 +22,7 @@ const ViewVet = () => {
   const { id } = useParams();
   const vets = UseVets();
   const { setSelectedVet, setVets } = useContext(VetsContext);
+  const { setSelectedAppointment } = useContext(AppointmentsContext);
   const [userRating, setUserRating] = useState(0);
   useEffect(() => {
     const foundVet = vets.find((v) => v.id == id);
@@ -27,16 +35,19 @@ const ViewVet = () => {
   function handleRate(id) {
     setVets(
       vets.map((v) =>
-        v.id === id ? { ...v, rating: updateRating(v.rating) } : v
-      )
+        v.id === id ? { ...v, rating: updateRating(v.rating) } : v,
+      ),
     );
     toast.success("Your Rate Is Saved");
     setUserRating(0);
   }
 
   function handleBook() {
-    !isLogged && toast.error("Login First!");
-    setSelectedVet(vet);
+    if (!isLogged) {
+      toast.error("Please login to book an appointment");
+      return;
+    }
+    setSelectedAppointment(vet);
     setBookOpen(true);
   }
 
@@ -46,13 +57,13 @@ const ViewVet = () => {
         <LoadingSpinner text="Vet is loading" />
       ) : (
         <div className="grid md:grid-cols-2 gap-8">
-          {!vet?.photo ? (
+          {!vet?.image ? (
             <p className="text-gray-500 text-center">No vet photos available</p>
           ) : (
-            <div className="w-full h-80 overflow-hidden rounded-2xl shadow-md mb-4">
+            <div className="w-full h-80 overflow-hidden rounded-2xl shadow-md mb-4 relative">
               <img
-                src={vet?.photo}
-                alt={vet?.name}
+                src={vet.image}
+                alt={vet.name}
                 className="w-full h-80 object-cover rounded-xl"
               />
             </div>
@@ -99,6 +110,7 @@ const ViewVet = () => {
         </div>
       )}
       <Toaster position="top-center" reverseOrder={false} />
+      <ServiceBook open={bookOpen} setOpen={setBookOpen} />
     </div>
   );
 };

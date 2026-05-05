@@ -1,105 +1,89 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import UseSelectedAppointment from "../../hooks/UseSelectedAppointment";
-import UseAppointments from "../../hooks/UseAppointments";
 import { AppointmentsContext } from "../../contexts/AppointmentsContext";
 import toast from "react-hot-toast";
 import { ProfileContext } from "../../contexts/ProfileContext";
-import { ServicesContext } from "../../contexts/ServicesContext";
+
+// Zod schema for validation
+const bookingSchema = z.object({
+  pet: z.string().min(1, "Please select a pet."),
+  date: z.string().min(1, "Please select a date.").refine((date) => {
+    const today = new Date();
+    const selectedDate = new Date(date);
+    today.setHours(0, 0, 0, 0);
+    selectedDate.setHours(0, 0, 0, 0);
+    return selectedDate >= today;
+  }, "Date cannot be in the past."),
+  time: z.string().min(1, "Please select a time."),
+  emergency: z.boolean().default(false),
+}).refine((data) => {
+  if (!data.date || !data.time) return true; // Skip if date/time not set
+  const now = new Date();
+  const selectedDateTime = new Date(`${data.date}T${data.time}`);
+  if (new Date(data.date).toDateString() === now.toDateString()) {
+    return selectedDateTime > now;
+  }
+  return true;
+}, {
+  message: "Time cannot be in the past.",
+  path: ["time"],
+});
 
 const ServiceBook = ({ open, setOpen }) => {
   const { userPets } = useContext(ProfileContext);
   const { bookService } = useContext(AppointmentsContext);
-
-  const [formData, setFormData] = useState({
-    pet: "",
-    date: "",
-    time: "",
-    emergency: false,
-  });
-
-  const [errors, setErrors] = useState([]);
   const selectedAppointment = UseSelectedAppointment();
   const { setAppointments } = useContext(AppointmentsContext);
 
-  // validate form fields
-  const validate = () => {
-    const { pet, date, time } = formData;
-    const newErrors = {};
-
-    if (!pet) {
-      newErrors.pet = "Please select a pet.";
-    }
-    if (!date) {
-      newErrors.date = "Please select a date.";
-    } else {
-      const today = new Date();
-      const selectedDate = new Date(date);
-
-      today.setHours(0, 0, 0, 0);
-      selectedDate.setHours(0, 0, 0, 0);
-
-      if (selectedDate < today) {
-        newErrors.date = "Date cannot be in the past.";
-      }
-    }
-
-    if (!time) {
-      newErrors.time = "Please select a time.";
-    } else {
-      const now = new Date();
-      const selectedDateTime = new Date(`${date}T${time}`);
-      if (
-        new Date(date).toDateString() === now.toDateString() &&
-        selectedDateTime < now
-      ) {
-        newErrors.time = "Time cannot be in the past.";
-      }
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleChange = (e) => {
-    const { name, type, value, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-  function reset() {
-    setFormData({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    watch,
+  } = useForm({
+    resolver: zodResolver(bookingSchema),
+    defaultValues: {
       pet: "",
       date: "",
       time: "",
       emergency: false,
-    });
-    setOpen(false);
-    setErrors({});
-  }
-  const handleFinishBook = async () => {
-    if (!validate()) return;
+    },
+  });
 
-    const localDateTime = new Date(`${formData.date}T${formData.time}`);
+  const selectedDate = watch("date");
+
+  const handleClose = () => {
+    reset();
+    setOpen(false);
+  };
+
+  const onSubmit = async (data) => {
+    const localDateTime = new Date(`${data.date}T${data.time}`);
     const timezoneOffset = localDateTime.getTimezoneOffset() * 60000;
     const requestedTime = new Date(
       localDateTime.getTime() - timezoneOffset
     ).toISOString();
 
     const payload = {
-      petId: formData.pet,
+      petId: data.pet,
       serviceId: selectedAppointment.id,
       requestedTime: requestedTime,
-      notes: formData.emergency ? "Emergency service" : "",
+      notes: data.emergency ? "Emergency service" : "",
     };
+
     try {
       const res = await bookService(payload);
       setAppointments((prev) => [...prev, res.data]);
+      toast.success("Appointment booked successfully!");
     } catch (error) {
-      console.log("can't book");
+      console.error("Booking failed:", error);
+      toast.error("Failed to book appointment. Please try again.");
     } finally {
-      reset();
+      handleClose();
     }
   };
 
@@ -110,12 +94,15 @@ const ServiceBook = ({ open, setOpen }) => {
           {/* Header */}
           <div className="text-center bg-[#41748137] py-5 px-4 rounded-t-2xl">
             <h2 className="text-xl md:text-2xl font-bold text-[#2F4156]">
-              Select Your Visit Date & Time
+              Book {selectedAppointment?.name || "Appointment"}
             </h2>
+            <p className="text-sm text-[#2f415677] mt-1">
+              Select your pet, date, and time for the appointment
+            </p>
           </div>
 
           {/* Content */}
-          <div className="p-6 md:p-10 flex flex-col gap-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-10 flex flex-col gap-6">
             <div className="flex flex-col md:flex-row gap-6">
               {/* Pet */}
               <div className="flex flex-col w-full md:w-fit bg-[#F8F9FA] p-4 rounded-lg shadow-sm h-fit">
@@ -123,9 +110,7 @@ const ServiceBook = ({ open, setOpen }) => {
                   Select Pet
                 </label>
                 <select
-                  name="pet"
-                  value={formData.pet}
-                  onChange={handleChange}
+                  {...register("pet")}
                   className={`px-3 py-2 border ${
                     errors.pet ? "border-red-500" : "border-[#2f415677]"
                   } rounded-lg text-[#2F4156] focus:ring-2 focus:ring-[#FD7E14] focus:border-[#FD7E14] outline-none w-full`}
@@ -139,7 +124,7 @@ const ServiceBook = ({ open, setOpen }) => {
                 </select>
                 <div className="h-6">
                   {errors.pet && (
-                    <span className="text-red-500 text-sm">{errors.pet}</span>
+                    <span className="text-red-500 text-sm">{errors.pet.message}</span>
                   )}
                 </div>
               </div>
@@ -151,9 +136,7 @@ const ServiceBook = ({ open, setOpen }) => {
                 </label>
                 <input
                   type="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleChange}
+                  {...register("date")}
                   className={`px-3 py-2 border ${
                     errors.date ? "border-red-500" : "border-[#2f415677]"
                   } rounded-lg text-[#2F4156] focus:ring-2 focus:ring-[#FD7E14] focus:border-[#FD7E14] outline-none w-full`}
@@ -161,7 +144,7 @@ const ServiceBook = ({ open, setOpen }) => {
                 <div className="h-6">
                   {errors.date && (
                     <span className="text-red-500 text-sm mt-1">
-                      {errors.date}
+                      {errors.date.message}
                     </span>
                   )}
                 </div>
@@ -174,9 +157,7 @@ const ServiceBook = ({ open, setOpen }) => {
                 </label>
                 <input
                   type="time"
-                  name="time"
-                  value={formData.time}
-                  onChange={handleChange}
+                  {...register("time")}
                   className={`px-3 py-2 border ${
                     errors.time ? "border-red-500" : "border-[#2f415677]"
                   } rounded-lg text-[#2F4156] focus:ring-2 focus:ring-[#FD7E14] focus:border-[#FD7E14] outline-none w-full`}
@@ -184,7 +165,7 @@ const ServiceBook = ({ open, setOpen }) => {
                 <div className="h-6">
                   {errors.time && (
                     <span className="text-red-500 text-sm mt-1">
-                      {errors.time}
+                      {errors.time.message}
                     </span>
                   )}
                 </div>
@@ -196,9 +177,7 @@ const ServiceBook = ({ open, setOpen }) => {
               <input
                 type="checkbox"
                 id="emergency"
-                name="emergency"
-                checked={formData.emergency}
-                onChange={handleChange}
+                {...register("emergency")}
                 className="w-4 h-4 accent-[#FD7E14] cursor-pointer"
               />
               <label
@@ -212,19 +191,20 @@ const ServiceBook = ({ open, setOpen }) => {
             {/* Actions */}
             <div className="flex flex-col-reverse md:flex-row justify-end gap-3 pt-2">
               <button
+                type="button"
                 className="cursor-pointer capitalize w-full md:w-auto px-6 py-3 rounded-xl bg-red-500 text-white font-medium hover:bg-red-600 transition"
-                onClick={() => reset()}
+                onClick={handleClose}
               >
                 Cancel
               </button>
               <button
+                type="submit"
                 className="cursor-pointer capitalize w-full md:w-auto px-6 py-3 rounded-xl bg-[#417481] text-white font-medium hover:bg-[#2F4156] transition"
-                onClick={handleFinishBook}
               >
-                Confirm
+                Confirm Booking
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     )

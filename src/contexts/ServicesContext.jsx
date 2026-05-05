@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import * as servicesApi from "../APIs/servicesAPI";
+// import * as servicesApi from "../APIs/servicesAPI";
+import * as servicesApi from "@/mockAPIs/mockServicesAPI";
 import { AuthContext } from "./AuthContext";
 
 const ServicesContext = createContext();
@@ -13,12 +14,12 @@ const ServicesProvider = ({ children }) => {
   const { role } = useContext(AuthContext);
 
   useEffect(() => {
-    if (role !== "PET_OWNER" || role !== "ADMIN") return;
+    if (role !== "PET_OWNER" && role !== "ADMIN") return;
     const fetchServices = async () => {
       setLoadig(true);
       try {
         const { data } = await servicesApi.getAllServices();
-        setServices(data.filter((s) => s.category !== "VET"));
+        setServices(data);
       } catch (error) {
         console.log("services error", error.response);
       } finally {
@@ -26,15 +27,15 @@ const ServicesProvider = ({ children }) => {
       }
     };
     fetchServices();
-  }, []);
+  }, [role]);
 
   useEffect(() => {
-    if (role !== "PET_OWNER" || role !== "ADMIN") return;
+    if (role !== "PET_OWNER" && role !== "ADMIN") return;
     const fetchServicesCategories = async () => {
       setLoadig(true);
       try {
         const { data } = await servicesApi.getServicesCategory();
-        setCategories(data.filter((c) => c !== "VET"));
+        setCategories(data);
       } catch (error) {
         console.log("services error", error.response);
       } finally {
@@ -42,7 +43,7 @@ const ServicesProvider = ({ children }) => {
       }
     };
     fetchServicesCategories();
-  }, []);
+  }, [role]);
 
   return (
     <ServicesContext.Provider
