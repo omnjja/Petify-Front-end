@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import * as userApi from "../APIs/userAPI";
+// import * as userApi from "../APIs/userAPI";
+import * as userApi from "@/mockAPIs/mockAuthAPI";
 import { confirmMessage } from "../utils/confirmMessage";
 import { toastPromise } from "../utils/toastPromise";
 import { AuthContext } from "./AuthContext";
@@ -56,7 +57,7 @@ const ProfileProvider = ({ children }) => {
       cancelText: "Cancel",
     });
     if (!willUpdate) return;
-    return await toastPromise(userApi.updateUser(payload), {
+    const response = await toastPromise(userApi.updateUser(payload), {
       loading: "Updating Profile... ⏳",
       success: "Profile updated successfully!",
       error: (error) =>
@@ -64,6 +65,8 @@ const ProfileProvider = ({ children }) => {
         error.response?.data?.message ||
         "Updating profile failed ❌",
     });
+    setUserProfile(response.data);
+    return response;
   };
 
   return (

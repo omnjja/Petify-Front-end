@@ -107,3 +107,89 @@ export const changePassword = async (userData) => {
   saveUsers(users);
   return { data: { message: "Password changed successfully" } };
 };
+
+export const getUser = async () => {
+  await delay();
+
+  const token = localStorage.getItem("user_token");
+
+  if (!token) {
+    const error = new Error("Unauthorized");
+    error.response = {
+      data: { message: "Unauthorized" },
+    };
+    throw error;
+  }
+
+  const userId = token.replace("mock-token-", "");
+
+  const users = getUsers();
+
+  const user = users.find((u) => u.id === userId);
+
+  if (!user) {
+    const error = new Error("User not found");
+    error.response = {
+      data: { message: "User not found" },
+    };
+    throw error;
+  }
+
+  return {
+    data: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      phoneNumber: user?.phoneNumber || "",
+      address: user?.address || "",
+    },
+  };
+};
+
+export const updateUser = async (userData) => {
+  await delay();
+
+  const token = localStorage.getItem("user_token");
+
+  if (!token) {
+    const error = new Error("Unauthorized");
+    error.response = {
+      data: { message: "Unauthorized" },
+    };
+    throw error;
+  }
+
+  const userId = token.replace("mock-token-", "");
+
+  const users = getUsers();
+
+  const index = users.findIndex((u) => u.id === userId);
+
+  if (index === -1) {
+    const error = new Error("User not found");
+    error.response = {
+      data: { message: "User not found" },
+    };
+    throw error;
+  }
+
+  users[index] = {
+    ...users[index],
+    ...userData,
+  };
+
+  saveUsers(users);
+
+  return {
+    data: {
+      id: users[index].id,
+      name: users[index].name,
+      email: users[index].email,
+      role: users[index].role,
+      phoneNumber: users[index]?.phoneNumber || "",
+      address: users[index]?.address || "", 
+    },
+  };
+};
+
