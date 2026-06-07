@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import * as userApi from "../APIs/userAPI";
+// import * as userApi from "../APIs/userAPI";
+import * as petsApi from "@/mockAPIs/mockPetsAPI";
 import toast from "react-hot-toast";
-import { confirmMessage } from "../utils/confirmMessage";
-import { toastPromise } from "../utils/toastPromise";
+import { confirmMessage } from "@/utils/confirmMessage";
+import { toastPromise } from "@/utils/toastPromise";
 import { AuthContext } from "./AuthContext";
 
 const UserPetsContext = createContext();
@@ -15,7 +16,7 @@ const UserPetsProvider = ({ children }) => {
     if (role !== "PET_OWNER") return;
     const fetchPets = async () => {
       try {
-        const { data } = await userApi.getUserPets();
+        const { data } = await petsApi.getUserPets();
         setPets(data);
       } catch (error) {
         console.log("petsError", error);
@@ -26,7 +27,7 @@ const UserPetsProvider = ({ children }) => {
 
   const getPetById = async (petId) => {
     try {
-      const { data } = await userApi.getPet(petId);
+      const { data } = await petsApi.getPet(petId);
       return data;
     } catch (error) {
       console.log("get pet Error", error);
@@ -35,7 +36,7 @@ const UserPetsProvider = ({ children }) => {
 
   const createPet = async (petData) => {
     try {
-      const { data } = await userApi.addNewPet(petData);
+      const { data } = await petsApi.addNewPet(petData);
       setPets((prev) => [...prev, data]);
       return data;
     } catch (error) {
@@ -52,7 +53,7 @@ const UserPetsProvider = ({ children }) => {
     if (!willUpdate) return;
 
     try {
-      const res = await toastPromise(userApi.editPet(petId, petData), {
+      const res = await toastPromise(petsApi.editPet(petId, petData), {
         loading: "Updating Pet Info... ⏳",
         success: "Pet Info Updated Successfully!",
         error: (error) =>
@@ -62,7 +63,7 @@ const UserPetsProvider = ({ children }) => {
       });
       const updatedPet = res.data;
       setPets((prev) =>
-        prev.map((petItem) => (petItem.id === petId ? updatedPet : petItem))
+        prev.map((petItem) => (petItem.id === petId ? updatedPet : petItem)),
       );
 
       return res;
@@ -80,7 +81,7 @@ const UserPetsProvider = ({ children }) => {
     if (!willDelete) return;
 
     try {
-      const res = await toastPromise(userApi.deletePet(petId), {
+      const res = await toastPromise(petsApi.deletePet(petId), {
         loading: "Removing Pet... ⏳",
         success: "Pet Removed Successfully",
         error: (error) =>
@@ -101,7 +102,7 @@ const UserPetsProvider = ({ children }) => {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("petId", petId);
-      const { data } = await userApi.addPetImage(petId, formData);
+      const { data } = await petsApi.addPetImage(petId, formData);
 
       setPets((prev) =>
         prev.map((petItem) =>
@@ -110,11 +111,11 @@ const UserPetsProvider = ({ children }) => {
                 ...petItem,
                 image: `data:${data.contentType};base64,${data.data}`,
               }
-            : petItem
-        )
+            : petItem,
+        ),
       );
     } catch (err) {
-      // console.error("Image upload error:", err.response.message || err);
+      console.log("Image upload error:", err.response.message || err);
       toast.error("Failed to upload image");
     }
   };

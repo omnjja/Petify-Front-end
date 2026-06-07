@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 // import * as userApi from "../APIs/userAPI";
 import * as userApi from "@/mockAPIs/mockAuthAPI";
-import { confirmMessage } from "../utils/confirmMessage";
-import { toastPromise } from "../utils/toastPromise";
+import * as petsApi from "@/mockAPIs/mockPetsAPI";
+import { confirmMessage } from "@/utils/confirmMessage";
+import { toastPromise } from "@/utils/toastPromise";
 import { AuthContext } from "./AuthContext";
 
 const ProfileContext = createContext();
@@ -38,7 +39,7 @@ const ProfileProvider = ({ children }) => {
     const getUserPets = async () => {
       try {
         setLoading(true);
-        const response = await userApi.getUserPets();
+        const response = await petsApi.getUserPets();
         setUserPets(response.data);
         return response.data;
       } catch (err) {

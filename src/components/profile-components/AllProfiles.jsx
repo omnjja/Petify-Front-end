@@ -1,17 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import ProfileInfo from "./ProfileInfo";
-import { Link } from "react-router-dom";
-import EditProfile from "./EditProfile";
 import AddNewPet from "./AddNewPet";
-import UseUserPets from "../../hooks/UseUserPets";
-import { UserPetsContext } from "../../contexts/UserPetsContext";
-import toast, { Toaster } from "react-hot-toast";
+import UseUserPets from "@/hooks/UseUserPets";
 import LoadingSpinner from "../LoadingSpinner";
 
 const AllProfiles = () => {
   const allPets = UseUserPets();
-
-  // const [editOpen, setEditOpen] = useState(false);
   const [addOpen, setAddOpen] = useState(false);
 
   return !allPets ? (
@@ -43,7 +37,6 @@ const AllProfiles = () => {
       </div>
 
       <AddNewPet open={addOpen} setOpen={setAddOpen} />
-      <Toaster position="top-center" />
     </>
   );
 };

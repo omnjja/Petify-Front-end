@@ -13,6 +13,7 @@ const SelectField = ({ label, id, options, register, error, ...props }) => {
          rounded-xl focus:outline-none focus:ring-1 focus:ring-[#FD7E14] focus:border-[#FD7E14] ${
            error ? "border-red-500" : "border-[#2f415677]"
          }`}
+        {...props}
       >
         {options.map((option) => (
           <option

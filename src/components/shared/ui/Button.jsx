@@ -10,13 +10,16 @@ const Button = ({
   primary,
   secondary,
   cover,
+  cancel,
   children,
 }) => {
   const btnType = primary
     ? `bg-[#2F4156] text-[#F5EFED] hover:bg-[#1f2c3d] rounded-xl`
     : secondary
       ? `bg-[#FD7E14] text-white hover:bg-[#e76c0a]/90 rounded-xl`
-      : cover && `bg-[#F8F9FA] hover:bg-gray-200 rounded-3xl`;
+      : cover
+        ? `bg-[#F8F9FA] hover:bg-gray-200 rounded-3xl`
+        : cancel ? `bg-[#ff383be0] text-white hover:bg-[#ff383b] rounded-xl` : "";
   return (
     <button
       type={type}
