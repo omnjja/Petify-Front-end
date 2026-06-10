@@ -14,6 +14,7 @@ import OrdersProvider from "./contexts/OrdersContext.jsx";
 import SPProvider from "./contexts/SPContext.jsx";
 import ProfileProvider from "./contexts/ProfileContext.jsx";
 import UsersProvider from "./contexts/UsersContext.jsx";
+import CartProvider from "./contexts/CartContext";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -21,25 +22,26 @@ createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <ProfileProvider>
           <ProductsProvider>
-            <ServicesProvider>
-              <AppointmentsProvider>
-                <VetsProvider>
-                  <UserPetsProvider>
-                    <OrdersProvider>
-                      <SPProvider>
-                        <UsersProvider>
-                        
-                          <App />
-                        </UsersProvider>
-                      </SPProvider>
-                    </OrdersProvider>
-                  </UserPetsProvider>
-                </VetsProvider>
-              </AppointmentsProvider>
-            </ServicesProvider>
+            <CartProvider>
+              <ServicesProvider>
+                <AppointmentsProvider>
+                  <VetsProvider>
+                    <UserPetsProvider>
+                      <OrdersProvider>
+                        <SPProvider>
+                          <UsersProvider>
+                            <App />
+                          </UsersProvider>
+                        </SPProvider>
+                      </OrdersProvider>
+                    </UserPetsProvider>
+                  </VetsProvider>
+                </AppointmentsProvider>
+              </ServicesProvider>
+            </CartProvider>
           </ProductsProvider>
         </ProfileProvider>
       </AuthProvider>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 );

@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 import Shop from "./pages/Shop";
 import ViewProduct from "./components/shop-components/ViewProduct";
 import Cart from "./components/shop-components/Cart";
-import Checkout from "./components/shop-components/Checkout";
+import Checkout from "./components/checkout-components/Checkout";
 import Vets from "./pages/Vets";
 import ViewVet from "./components/vets-components/ViewVet";
 import PetServices from "./pages/PetServices";
@@ -28,6 +28,8 @@ import UsersTable from "./components/admin-components/UsersTable";
 import ProductsTable from "./components/admin-components/ProductsTable";
 import ServicesTable from "./components/admin-components/ServicesTable";
 import { Navigate } from "react-router-dom";
+import CheckoutPage from "./pages/CheckoutPage";
+import OrderDetailsPage from "./pages/OrderDetailsPage";
 
 export const petOwner = [
   { path: "/signup", element: <Signup /> },
@@ -36,7 +38,8 @@ export const petOwner = [
   { path: "/shop", element: <Shop /> },
   { path: "/shop/view-product/:id", element: <ViewProduct /> },
   { path: "/cart", element: <Cart /> },
-  { path: "/checkout", element: <Checkout /> },
+  { path: "/checkout", element: <CheckoutPage /> },
+  { path: "/order-details/:id", element: <OrderDetailsPage /> },
   { path: "/vets", element: <Vets /> },
   { path: "/vets/view-vet/:id", element: <ViewVet /> },
   { path: "/services", element: <PetServices /> },
