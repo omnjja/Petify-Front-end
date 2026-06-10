@@ -1,42 +1,39 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
+import * as ordersApi from "@/mockAPIs/mockOrdersAPI";
 
 const OrdersContext = createContext();
 const OrdersProvider = ({ children }) => {
-  const [orders, setOrders] = useState([
-    {
-      id: "1001",
-      status: "completed",
-      date: "2025-08-12",
-      total: 250,
-    },
-    {
-      id: "1002",
-      status: "in progress",
-      date: "2025-09-05",
-      total: 120,
-    },
-    {
-      id: "1003",
-      status: "canceled",
-      date: "2025-08-30",
-      total: 90,
-    },
-    {
-      id: "1004",
-      status: "in progress",
-      date: "2025-09-10",
-      total: 300,
-    },
-    {
-      id: "1005",
-      status: "completed",
-      date: "2025-07-25",
-      total: 450,
-    },
-  ]);
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const { data } = await ordersApi.getUserOrders();
+      setOrders(data);
+    };
+
+    fetchOrders();
+  }, []);
+
+  const createOrder = async (orderData) => {
+    const { data } = await ordersApi.createOrder(orderData);
+    setOrders((prev) => [data, ...prev]);
+    return data;
+  };
+
+  const getOrderById = (id) => {
+    return orders.find((o) => o.id === id);
+  };
+
+  const cancelOrder = async (id) => {
+    const { data } = await ordersApi.cancelOrder(id);
+
+    setOrders((prev) => prev.map((order) => (order.id === id ? data : order)));
+  };
 
   return (
-    <OrdersContext.Provider value={{ orders, setOrders }}>
+    <OrdersContext.Provider
+      value={{ orders, setOrders, createOrder, getOrderById, cancelOrder }}
+    >
       {children}
     </OrdersContext.Provider>
   );
