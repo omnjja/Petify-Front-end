@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import { MdDelete } from "react-icons/md";
-import { ProductsContext } from "../../contexts/ProductsContext";
+import { CartContext } from "../../contexts/CartContext";
 import swal from "sweetalert";
 import toast, { Toaster } from "react-hot-toast";
+import UseProducts from "@/hooks/UseProducts";
 
 const CartItem = ({ item }) => {
-  const { products, removeFromCart, updateCartQuantity } =
-    useContext(ProductsContext);
-
+  const { removeFromCart, updateCartQuantity } = useContext(CartContext);
+  const products = UseProducts();
+  if (!products) return;
   const product = products.find((p) => p.id === item?.id);
 
   function removeItem(id) {

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
-import { ProductsContext } from '../contexts/ProductsContext'
+import { CartContext } from "../contexts/CartContext";
 
 const UseCartCount = () => {
-    const {cartCount} = useContext(ProductsContext);
+    const {cartCount} = useContext(CartContext);
     return cartCount;
 }
 

@@ -13,6 +13,7 @@ import Rating from "../Rating";
 import UseLoggedUser from "../../hooks/UseLoggedUser";
 import LoadingSpinner from "../LoadingSpinner";
 import toast from "react-hot-toast";
+import { CartContext } from "@/contexts/CartContext";
 
 const ViewProduct = () => {
   const { id } = useParams();
@@ -21,7 +22,7 @@ const ViewProduct = () => {
   const { setSelectedProduct } = useContext(ProductsContext);
   const product = UseSelectedProduct();
 
-  const { cartItems, setCartItems } = useContext(ProductsContext);
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     const viewedProduct = products.find((p) => p.id == id);
@@ -31,27 +32,17 @@ const ViewProduct = () => {
   const [userRating, setUserRating] = useState(0);
 
   const isLogged = UseLoggedUser();
-  const [cartItem, setCartItem] = useState(null);
 
-  useEffect(() => {
-    product && setCartItem({ ...product, quantity: 1 });
-  }, [product]);
-
-  function increaseQuantity(id) {
-    setCartItems(
-      cartItems.map((item) =>
-        item.id == id ? { ...item, quantity: item.quantity + 1 } : item,
-      ),
-    );
-  }
-  function handleAddToCart(id) {
-    !isLogged && toast.error("Login First!");
-    const thisCartItem = cartItems.find((ci) => ci.id == id);
-    if (isLogged) {
-      thisCartItem
-        ? increaseQuantity(id)
-        : setCartItems([...cartItems, cartItem]);
+  async function handleAddToCart(product) {
+    if (!isLogged) {
+      toast.error("Login First!");
+      return;
+    }
+    try {
+      await addToCart(product);
       toast.success("Added To Cart");
+    } catch (error) {
+      toast.error(error || "Something Went wrong");
     }
   }
 
@@ -109,7 +100,7 @@ const ViewProduct = () => {
             <div className="flex gap-5">
               {/* Add to Cart */}
               <button
-                onClick={() => handleAddToCart(product.id)}
+                onClick={() => handleAddToCart(product)}
                 className="cursor-pointer flex items-center gap-2 bg-[#2f4156d6] text-white px-6 py-3 rounded-xl shadow-md hover:bg-[#2F4156] transition-colors w-fit"
               >
                 <MdAddShoppingCart size={20} />

@@ -17,38 +17,44 @@ export const addCartItem = async (product) => {
 
   if (existing) {
     existing.quantity += product.quantity || 1;
-    saveCart(cart);
-
-    return { data: { ...existing } };
+  } else {
+    cart.push({
+      ...product,
+      quantity: product.quantity || 1,
+    });
   }
 
-  const newItem = {
-    ...product,
-    quantity: product.quantity || 1,
-  };
+  saveCart(cart);
 
-  saveCart([...cart, newItem]);
-
-  return { data: newItem };
+  return { data: cart };
 };
 
 export const updateCartItemQuantity = async (productId, quantity) => {
   await delay();
+
   const cart = getCart().map((i) =>
     i.id === productId ? { ...i, quantity } : i,
   );
+
   saveCart(cart);
-  return { data: cart.find((i) => i.id === productId) };
+
+  return { data: cart };
 };
 
 export const removeCartItem = async (productId) => {
   await delay();
-  saveCart(getCart().filter((i) => i.id !== productId));
-  return { data: { message: "Item removed" } };
+
+  const cart = getCart().filter((i) => i.id !== productId);
+
+  saveCart(cart);
+
+  return { data: cart };
 };
 
 export const clearCart = async () => {
   await delay();
+
   saveCart([]);
-  return { data: { message: "Cart cleared" } };
+
+  return { data: [] };
 };

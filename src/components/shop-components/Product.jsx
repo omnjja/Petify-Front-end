@@ -2,19 +2,16 @@ import React, { useContext } from "react";
 import { MdAddShoppingCart } from "react-icons/md";
 import UseLoggedUser from "../../hooks/UseLoggedUser";
 import { Link } from "react-router-dom";
-import { ProductsContext } from "../../contexts/ProductsContext";
 import Rating from "../Rating";
-import UseCartItems from "../../hooks/UseCartItems";
 import toast, { Toaster } from "react-hot-toast";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { CartContext } from "@/contexts/CartContext";
 
 const Product = ({ product }) => {
   const isLogged = UseLoggedUser();
-  const { addToCart } = useContext(ProductsContext);
+  const { addToCart } = useContext(CartContext);
 
   async function handleAddToCart(product) {
     if (!isLogged) {

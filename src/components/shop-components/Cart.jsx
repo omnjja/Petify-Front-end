@@ -1,22 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import CartItem from "./CartItem";
-import { Link } from "react-router-dom";
-import Checkout from "./Checkout";
-import { ProductsContext } from "../../contexts/ProductsContext";
-import UseCartItems from "../../hooks/UseCartItems";
+import { useNavigate } from "react-router-dom";
+import UseCartItems from "@/hooks/UseCartItems";
+import { CartContext } from "@/contexts/CartContext";
+import Button from "./../shared/ui/Button";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const cartItems = UseCartItems();
-  const [open, setOpen] = useState(false);
-  const shipping = 5.99;
-  const taxRate = 0.1;
-
-  const subtotal = cartItems?.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0,
-  );
-  const tax = subtotal * taxRate;
-  const total = subtotal + shipping + tax;
+  const { subtotal, shipping, tax, total } = useContext(CartContext);
 
   return (
     <div className="w-full max-w-7xl my-10 mx-auto bg-white rounded-2xl shadow-lg p-4 md:p-8 flex flex-col md:flex-row gap-14">
@@ -55,15 +47,14 @@ const Cart = () => {
               <span>${total.toFixed(2)}</span>
             </div>
           </div>
-          <button
+          <Button
             className="w-full bg-[#FD7E14] hover:bg-[#e66f0c] text-white font-semibold py-3 rounded-lg mt-5"
-            onClick={() => setOpen(true)}
+            onClick={() => navigate("/checkout")}
           >
             Checkout
-          </button>
+          </Button>
         </div>
       )}
-      <Checkout open={open} setOpen={setOpen} />
     </div>
   );
 };
